@@ -1,0 +1,48 @@
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+using namespace std;
+
+class Shape{
+public:
+	Shape() {}
+	virtual ~Shape() {}
+	virtual int getValue()const;
+};
+int Shape::getValue()const
+{
+	return 0;
+}
+class Triangle : public Shape{
+public:
+	Triangle() {}
+	~Triangle() {}
+	int getValue()const;
+};
+int Triangle::getValue()const
+{
+	return 3;
+}
+class Rectangle : public Shape {
+public:
+	Rectangle() {}
+	~Rectangle() {}
+	int getValue()const;
+};
+int Rectangle::getValue()const
+{
+	return 4;
+}
+/*用dynamic_cast类型转换操作符完成该函数*/
+int getVertexCount(Shape * b){
+	return b->getValue();
+}
+
+int main() {
+	Shape s;
+	cout << getVertexCount(&s) << endl;
+	Triangle t;
+	cout << getVertexCount(&t) << endl;
+	Rectangle r;
+	cout << getVertexCount(&r) << endl;
+}
