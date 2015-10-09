@@ -1,0 +1,51 @@
+/* students please write your program here */
+#include <iostream>
+#include <math.h>
+using namespace std;
+struct matrix{
+	matrix(long long m00, long long m01, long long m10, long long m11) :m_m00(m00), m_m01(m01), m_m10(m10), m_m11(m11){}
+	
+
+	long long m_m00;
+	long long m_m01;
+	long long m_m10;
+	long long m_m11;
+};
+matrix MatrixMultiply(matrix matrix1,matrix matrix2){
+	return matrix(matrix1.m_m00*matrix2.m_m00+matrix1.m_m01*matrix2.m_m10,
+		matrix1.m_m00*matrix2.m_m01+matrix1.m_m01*matrix2.m_m11,
+		matrix1.m_m10*matrix2.m_m00+matrix1.m_m11*matrix2.m_m10,
+		matrix1.m_m10*matrix2.m_m01+matrix1.m_m11*matrix2.m_m11
+		);
+}
+matrix matrixPower(matrix m,unsigned int n){
+	if (n == 1) return m;
+	else if (n % 2 == 0){
+		matrix temp = matrixPower(m, n / 2);
+		return MatrixMultiply(temp, temp);
+	}
+	else if (n % 2 == 1){
+		matrix temp = matrixPower(m, n / 2);
+		matrix temp2 = MatrixMultiply(temp, temp);
+		return MatrixMultiply(temp2, m);
+	}
+}
+long long fib(int n){
+	if (n < 2)return 1;
+	matrix m(1, 1, 1, 0);
+	m=matrixPower(m, n );
+	return m.m_m00;
+}
+long long fibR(int n){
+	if (n < 2)return 1;
+	else return fibR(n - 1) + fibR(n - 2);
+}
+int main(){
+	int a;
+
+
+	while (cin >> a){
+		cout << fib(a) << endl;
+		
+	}
+}
